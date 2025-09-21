@@ -1,7 +1,6 @@
 import { input, select } from '@inquirer/prompts';
 
 export type AppOptions = {
-  componentName: string;
   outputFolder: string;
   language: 'js' | 'ts';
   layoutSystem: null | 'css' | 'module.css' | 'sass' | 'module.sass';
@@ -9,17 +8,30 @@ export type AppOptions = {
 }
 
 type QuestionaireProps = {
-  defaults?: Partial<Omit<AppOptions, 'componentName'>>;
+  defaults?: Omit<AppOptions, 'componentName'>;
+  forceDefaults?: boolean;
 };
 
-export async function questionaire({ defaults = {} }: QuestionaireProps = {}): Promise<AppOptions> {
-  const componentName: AppOptions['componentName'] = await input({
+export async function questionaire({
+  defaults = {
+    outputFolder: '.',
+    language: 'ts',
+    layoutSystem: 'module.css',
+    storybook: '',
+  },
+  forceDefaults = false,
+}: QuestionaireProps = {}) {
+  const componentName = await input({
     message: 'Name of the component',
     required: true,
     validate: name => Boolean(name.match(/^\s*[A-Z][a-zA-Z0-9]*\s*$/))
       ? true
       : 'Component name must start with an uppercase letter and have letters and numbers only',
   });
+
+  if (forceDefaults) {
+    return [componentName, { ...defaults }] as const;
+  }
 
   const outputFolder: AppOptions['outputFolder'] = await input({
     message: 'Path to where the component will be generated',
@@ -93,11 +105,10 @@ export async function questionaire({ defaults = {} }: QuestionaireProps = {}): P
     default: defaults.storybook,
   });
 
-  return {
-    componentName,
+  return [componentName, {
     outputFolder,
     language,
     layoutSystem,
     storybook,
-  };
+  }] as const;
 };

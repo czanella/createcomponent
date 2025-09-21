@@ -10,7 +10,7 @@ async function main() {
   const args = await argsSchema.validate(require('args-parser')(process.argv));
 
   // Try laoding config file
-  let defaults: Partial<AppOptions> = {};
+  let defaults: AppOptions | undefined = undefined;
   try {
     defaults = JSON.parse(readFileSync(CONFIG_PATH).toString());
   } catch {
@@ -18,13 +18,14 @@ async function main() {
   }
 
   // Ask user questions
-  const options = await questionaire({ defaults });
+  const [componentName, options] = await questionaire({
+    defaults,
+    forceDefaults: args.y,
+  });
 
   // If user chose to use defaults, then we write what has been chosen
-  if (!args.d) {
-    defaults = { ...options };
-    delete defaults.componentName;
-    writeFileSync(CONFIG_PATH, JSON.stringify(defaults, null, 2));
+  if (!args.y) {
+    writeFileSync(CONFIG_PATH, JSON.stringify(options, null, 2));
   }
 
   console.log(JSON.stringify(options, null, 2));
