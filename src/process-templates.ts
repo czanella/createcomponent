@@ -1,6 +1,6 @@
 // @ts-ignore
 import swig from "free-swig";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
 import { AppOptions } from "./input-questionaire";
 import { toDashed } from "./to-dashed";
@@ -47,7 +47,9 @@ export async function processTemplates({ componentName, options }:ProcessTemplat
         componentFolder,
         templatePath.replace('{component}', componentDashed),
       ),
-      swig.compileFile(path.join(__dirname, 'templates', templatePath))({
+      swig.compile(
+        readFileSync(path.join(__dirname, '..', 'templates', templatePath)).toString(),
+      )({
         componentName,
         componentDashed,
         componentLowercase,
