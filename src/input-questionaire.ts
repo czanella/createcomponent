@@ -5,6 +5,7 @@ type AppOptions = {
   outputFolder: string;
   language: 'js' | 'ts';
   layoutSystem: null | 'css' | 'module.css' | 'sass' | 'module.sass';
+  storybook: null | string;
 }
 
 type QuestionaireProps = {
@@ -69,10 +70,33 @@ export async function questionaire({ defaults = {} }: QuestionaireProps = {}): P
     default: defaults.layoutSystem,
   });
 
+  const useStorybook = await select({
+    message: 'Create Storybook story?',
+    choices: [
+      {
+        name: 'Yes',
+        value: true,
+      },
+      {
+        name: 'No',
+        value: false,
+      },
+    ],
+    default: Boolean(defaults.storybook),
+  });
+
+  const storybook: AppOptions['storybook'] = !useStorybook
+    ? null
+    : await input({
+    message: 'Name of the Storybook story',
+    required: true,
+  });
+
   return {
     componentName,
     outputFolder,
     language,
     layoutSystem,
+    storybook,
   };
 };
