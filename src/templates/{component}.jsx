@@ -2,7 +2,7 @@
 
 export function {{ componentName }}({}) {
   return (
-    <div className={% if layoutModule %}{styles.{{componentLowercase}}}{%else%}'{{componentLowercase}}'{% endif %}>
+    <div{% if layoutSystem %} className={% if layoutModule %}{styles.{{componentLowercase}}}{%else%}'{{componentLowercase}}'{% endif %}{% endif %}>
       {{ componentName }} component
     </div>
   );
