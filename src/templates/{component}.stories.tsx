@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { {{ componentName }} as {{ componentName }}Component } from "./{{ componentDashed }}";
+import { Meta, StoryObj } from '@storybook/react';
+import { {{ componentName }} as {{ componentName }}Component } from './{{ componentDashed }}';
 
 const meta: Meta<typeof {{ componentName }}Component> = {
   title: '{{ storybook }}',

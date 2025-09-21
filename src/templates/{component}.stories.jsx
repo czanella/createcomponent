@@ -1,4 +1,4 @@
-import { {{ componentName }} as {{ componentName }}Component } from  "./{{ componentDashed }}";
+import { {{ componentName }} as {{ componentName }}Component } from  './{{ componentDashed }}';
 
 const meta = {
   title: '{{ storybook }}',
