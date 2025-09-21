@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import { argsSchema } from './args-schema';
 import { AppOptions, questionaire } from './input-questionaire';
+import { processTemplates } from './process-templates';
 
 const CONFIG_PATH = path.join(process.cwd(), 'ccSettings.json');
 
@@ -28,7 +29,10 @@ async function main() {
     writeFileSync(CONFIG_PATH, JSON.stringify(options, null, 2));
   }
 
-  console.log(JSON.stringify(options, null, 2));
+  // Process the output files
+  processTemplates({ componentName, options });
+
+  console.log('Done!');
 }
 
 main().catch(e => {
