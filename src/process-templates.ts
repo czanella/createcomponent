@@ -30,6 +30,10 @@ export async function processTemplates({ componentName, options }:ProcessTemplat
     }
   }
 
+  if (options.storybook) {
+    templatePaths.push(`{component}.stories.${options.language}x`);
+  }
+
   // Check if the folder exists. If so, halts everything
   if (existsSync(componentFolder)) {
     throw new Error(`Folder "${componentFolder}" already exists`);
@@ -49,6 +53,7 @@ export async function processTemplates({ componentName, options }:ProcessTemplat
         componentLowercase,
         layoutSystem: options.layoutSystem,
         layoutModule: options.layoutModule,
+        storybook: options.storybook,
       }),
     );
   }
