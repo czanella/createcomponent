@@ -1,11 +1,11 @@
 import { input, select } from '@inquirer/prompts';
 
-type AppOptions = {
+export type AppOptions = {
   componentName: string;
   outputFolder: string;
   language: 'js' | 'ts';
   layoutSystem: null | 'css' | 'module.css' | 'sass' | 'module.sass';
-  storybook: null | string;
+  storybook: string;
 }
 
 type QuestionaireProps = {
@@ -86,10 +86,11 @@ export async function questionaire({ defaults = {} }: QuestionaireProps = {}): P
   });
 
   const storybook: AppOptions['storybook'] = !useStorybook
-    ? null
+    ? ''
     : await input({
     message: 'Name of the Storybook story',
     required: true,
+    default: defaults.storybook,
   });
 
   return {
