@@ -19,6 +19,7 @@ export async function processTemplates({ componentName, options }:ProcessTemplat
   // Process options and populate the paths array
   const templatePaths: string[] = [
     `index.${options.language}`,
+    `{component}.${options.language}x`,
   ];
 
   // Check if the folder exists. If so, halts everything
@@ -39,6 +40,7 @@ export async function processTemplates({ componentName, options }:ProcessTemplat
         componentDashed,
         componentLowercase,
         layoutSystem: options.layoutSystem,
+        layoutModule: options.layoutModule,
       }),
     );
   }

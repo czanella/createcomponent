@@ -3,7 +3,8 @@ import { input, select } from '@inquirer/prompts';
 export type AppOptions = {
   outputFolder: string;
   language: 'js' | 'ts';
-  layoutSystem: null | 'css' | 'module.css' | 'sass' | 'module.sass';
+  layoutSystem: null | 'css' | 'sass';
+  layoutModule: boolean;
   storybook: string;
 }
 
@@ -16,7 +17,8 @@ export async function questionaire({
   defaults = {
     outputFolder: '.',
     language: 'ts',
-    layoutSystem: 'module.css',
+    layoutSystem: 'css',
+    layoutModule: true,
     storybook: '',
   },
   forceDefaults = false,
@@ -67,19 +69,25 @@ export async function questionaire({
         value: 'css',
       },
       {
-        name: 'CSS modules',
-        value: 'module.css',
-      },
-      {
         name: 'SASS',
         value: 'sass',
       },
-      {
-        name: 'SASS modules',
-        value: 'module.sass',
-      },
     ],
     default: defaults.layoutSystem,
+  });
+
+  const layoutModule: AppOptions['layoutModule'] = !layoutSystem ? false : await select({
+    message: `Use layout modules (.module.${layoutSystem})?`,
+    choices: [
+      {
+        name: 'Yes',
+        value: true,
+      },
+      {
+        name: 'No',
+        value: false,
+      },
+    ],
   });
 
   const useStorybook = await select({
@@ -109,6 +117,7 @@ export async function questionaire({
     outputFolder,
     language,
     layoutSystem,
+    layoutModule,
     storybook,
   }] as const;
 };
