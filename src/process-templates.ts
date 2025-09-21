@@ -22,6 +22,14 @@ export async function processTemplates({ componentName, options }:ProcessTemplat
     `{component}.${options.language}x`,
   ];
 
+  if (options.layoutSystem) {
+    if (options.layoutModule) {
+      templatePaths.push(`{component}.module.${options.layoutSystem}`);
+    } else {
+      templatePaths.push(`{component}.${options.layoutSystem}`);
+    }
+  }
+
   // Check if the folder exists. If so, halts everything
   if (existsSync(componentFolder)) {
     throw new Error(`Folder "${componentFolder}" already exists`);

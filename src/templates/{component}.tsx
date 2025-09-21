@@ -5,7 +5,7 @@ type {{ componentName }}Props = {
 
 export function {{ componentName }}({}: {{ componentName }}Props) {
   return (
-    <div{% if layoutModule %} className={styles.{{componentLowercase}}}{% endif %}>
+    <div className={% if layoutModule %}{styles.{{componentLowercase}}}{%else%}'{{componentLowercase}}'{% endif %}>
       {{ componentName }} component
     </div>
   );
