@@ -1,6 +1,6 @@
-{% if layoutSystem %}import {% if layoutModule %}styles from {% endif %}'./{{ componentDashed }}.{% if layoutModule %}module.{% endif %}{{ layoutSystem }}';{% endif %}
+{% if layoutSystem %}import {% if layoutModule %}styles from {% endif %}'./{{ componentDashed }}.{% if layoutModule %}module.{% endif %}{{ layoutSystem }}';
 
-export function {{ componentName }}({}) {
+{% endif %}export function {{ componentName }}({}) {
   return (
     <div{% if layoutSystem %} className={% if layoutModule %}{styles.{{componentLowercase}}}{%else%}'{{componentLowercase}}'{% endif %}{% endif %}>
       {{ componentName }} component

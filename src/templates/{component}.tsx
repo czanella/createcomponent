@@ -1,6 +1,6 @@
-{% if layoutSystem %}import {% if layoutModule %}styles from {% endif %}'./{{ componentDashed }}.{% if layoutModule %}module.{% endif %}{{ layoutSystem }}';{% endif %}
+{% if layoutSystem %}import {% if layoutModule %}styles from {% endif %}'./{{ componentDashed }}.{% if layoutModule %}module.{% endif %}{{ layoutSystem }}';
 
-type {{ componentName }}Props = {
+{% endif %}type {{ componentName }}Props = {
 };
 
 export function {{ componentName }}({}: {{ componentName }}Props) {
