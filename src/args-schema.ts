@@ -5,5 +5,5 @@ export const COMPONENT_NAME_ERROR = 'Component name must start with an uppercase
 
 export const argsSchema = object().shape({
   "y": boolean().default(false),
-  "name": string().default('').matches(COMPONENT_NAME, { message: COMPONENT_NAME_ERROR }),
+  "name": string().matches(COMPONENT_NAME, { message: COMPONENT_NAME_ERROR }),
 }).stripUnknown();
