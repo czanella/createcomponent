@@ -1,4 +1,5 @@
 import { input, select } from '@inquirer/prompts';
+import { COMPONENT_NAME, COMPONENT_NAME_ERROR } from './args-schema';
 
 export type AppOptions = {
   outputFolder: string;
@@ -9,8 +10,9 @@ export type AppOptions = {
 }
 
 type QuestionaireProps = {
-  defaults?: Omit<AppOptions, 'componentName'>;
+  defaults?: AppOptions;
   forceDefaults?: boolean;
+  name?: string;
 };
 
 export async function questionaire({
@@ -22,13 +24,14 @@ export async function questionaire({
     storybook: '',
   },
   forceDefaults = false,
+  name,
 }: QuestionaireProps = {}) {
-  const componentName = await input({
+  const componentName = name || await input({
     message: 'Name of the component',
     required: true,
-    validate: name => Boolean(name.match(/^\s*[A-Z][a-zA-Z0-9]*\s*$/))
+    validate: name => Boolean(name.match(COMPONENT_NAME))
       ? true
-      : 'Component name must start with an uppercase letter and have letters and numbers only',
+      : COMPONENT_NAME_ERROR,
   });
 
   if (forceDefaults) {

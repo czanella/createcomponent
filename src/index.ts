@@ -22,6 +22,7 @@ async function main() {
   const [componentName, options] = await questionaire({
     defaults,
     forceDefaults: args.y,
+    name: args.name,
   });
 
   // If user chose to use defaults, then we write what has been chosen
@@ -32,7 +33,7 @@ async function main() {
   // Process the output files
   processTemplates({ componentName, options });
 
-  console.log('Done!');
+  console.log(`Done! Component ${componentName} created successfully.`);
 }
 
 main().catch(e => {
