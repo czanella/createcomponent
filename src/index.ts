@@ -31,7 +31,7 @@ async function main() {
   }
 
   // Process the output files
-  processTemplates({ componentName, options });
+  await processTemplates({ componentName, options });
 
   console.log(`Done! Component ${componentName} created successfully.`);
 }
