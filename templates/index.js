@@ -1,1 +1,1 @@
-export { {{ componentName }} } from './{{componentDashed}}.jsx';
+export { {{ componentName }} } from './{{componentDashed}}';

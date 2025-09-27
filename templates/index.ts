@@ -1,1 +1,1 @@
-export { {{ componentName }} } from './{{componentDashed}}.tsx';
+export { {{ componentName }} } from './{{componentDashed}}';
