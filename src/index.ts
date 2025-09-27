@@ -4,7 +4,7 @@ import { argsSchema } from './args-schema';
 import { AppOptions, questionaire } from './input-questionaire';
 import { processTemplates } from './process-templates';
 
-const CONFIG_PATH = path.join(__dirname, 'ccSettings.json');
+const CONFIG_PATH = path.join(__dirname, '..', 'ccSettings.json');
 
 async function main() {
   // Parse command line arguments
