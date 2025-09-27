@@ -17,5 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const {{ componentName }}: Story = {
-  args: {},
+  args: {
+    title: 'This is the title',
+  },
 };
